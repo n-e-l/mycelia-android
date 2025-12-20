@@ -6,5 +6,4 @@ resolver = "2"
 version = "0.1.0"
 
 [workspace.dependencies]
-eframe = { version = "0.31", features = ["wgpu", "android-game-activity"] }
-egui = "0.31"
+eframe = { version = "0.33.3", features = ["wgpu", "android-game-activity"] }

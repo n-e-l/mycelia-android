@@ -1,8 +1,12 @@
+# Direnv
+.direnv/
+.envrc
+
 # Project files
 .idea/
 
-.gradle/
-.cargo/
+# Secret filet
+.env
 
 # will have compiled files and executables
 debug/
@@ -18,10 +22,6 @@ Cargo.lock
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
 
-# Android files
-android/java/app/build/
-local.properties
-jniLibs
 
 # Added by cargo
 
