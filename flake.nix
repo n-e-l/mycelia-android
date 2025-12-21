@@ -28,6 +28,7 @@
             rust-analyzer
             cargo-watch
             cargo-edit
+            pkg-config
 
 			# GPU
 			vulkan-loader
@@ -36,49 +37,33 @@
 			vulkan-validation-layers
 			glslang
 			spirv-tools
-			shaderc
 
 			# Wayland
-			wayland
-			wayland-protocols
+            wayland
+            wayland-protocols
             libxkbcommon
-            
-			# For building shaderc
-			cmake
-			python3
 
-			# Audio
-            alsa-lib
-            alsa-lib.dev
-            alsa-utils
-            alsa-tools
+			# Network
+			openssl.dev
           ];
 
-          # Set library paths
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-            pkgs.wayland
-            pkgs.libxkbcommon
-            pkgs.vulkan-loader
-          ];
+          shellHook = ''
+            export OPENSSL_DIR="${pkgs.openssl.out}"
+            export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
+            export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
+            export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig:${pkgs.wayland}/lib/pkgconfig:${pkgs.libxkbcommon}/lib/pkgconfig"
 
-		  shellHook = ''
-				export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d"
-				export LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib:${pkgs.vulkan-loader}/lib:$LD_LIBRARY_PATH"
+            # Vulkan validation layers
+            export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d"
 
-				# Help shaderc-sys find the library
-				export SHADERC_LIB_DIR="${pkgs.shaderc.lib}/lib"
-				export SHADERC_INCLUDE_DIR="${pkgs.shaderc.dev}/include"
-				export PKG_CONFIG_PATH="${pkgs.shaderc}/lib/pkgconfig:$PKG_CONFIG_PATH"
+            # Rust source (for rust-analyzer)
+            export RUST_SRC_PATH="${rustToolchain}/lib/rustlib/src/rust/library"
 
+            # Wayland backend for winit
+            export WINIT_UNIX_BACKEND=wayland
+
+			export LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib:${pkgs.vulkan-loader}/lib:${pkgs.xorg.libxcb}/lib:$LD_LIBRARY_PATH"
           '';
-
-  		  PKG_CONFIG_PATH = "${pkgs.alsa-lib.dev}/lib/pkgconfig:${pkgs.jack2}/lib/pkgconfig";
-          ALSA_PCM_CARD = "default";
-          ALSA_PCM_DEVICE = "0";
-
-          # Environment variables
-          RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
-
         };
       });
 }
