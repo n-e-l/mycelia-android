@@ -1,4 +1,4 @@
-package local.egui_keyboard_demo;
+package local.mycelia;
 
 import android.os.Bundle;
 import android.util.Log;

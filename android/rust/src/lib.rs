@@ -7,14 +7,14 @@ fn android_main(
 
     android_logger::init_once(
         android_logger::Config::default()
-            .with_tag("egui_keyboard_demo")
+            .with_tag("mycelia")
             .with_max_level(log::LevelFilter::Debug),
     );
     let mut options = NativeOptions::default();
     options.renderer = Renderer::Wgpu;
     options.android_app = Some(app);
     eframe::run_native(
-        "egui keyboard demo",
+        "mycelia",
         options,
         Box::new(|_| Ok(Box::new(core::MyApp::default()))),
     )?;

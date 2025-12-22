@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace "local.egui_keyboard_demo"
+    namespace "local.mycelia"
     compileSdk 34
 
     defaultConfig {
