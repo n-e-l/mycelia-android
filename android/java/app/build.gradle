@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace "local.egui_keyboard_demo"
-    compileSdk 31
+    compileSdk 34
 
     defaultConfig {
         minSdk 29
